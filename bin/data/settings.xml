@@ -1,0 +1,23 @@
+<group>
+	<Attraction>
+		<radius>92</radius>
+		<power>-2.55102</power>
+		<strength>6.93878</strength>
+	</Attraction>
+	<Separation>
+		<radius>72</radius>
+		<power>-0.969388</power>
+		<strength>2.2449</strength>
+		<spring_offset>5.35714</spring_offset>
+	</Separation>
+	<Alignment>
+		<radius>31</radius>
+		<weight>0.127551</weight>
+	</Alignment>
+	<Timing>
+		<acceleration_step>72</acceleration_step>
+		<velocity_step>46</velocity_step>
+		<minimum_velocity>0.0256077</minimum_velocity>
+		<maximum_velocity>0.0817245</maximum_velocity>
+	</Timing>
+</group>

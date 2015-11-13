@@ -31,7 +31,7 @@ void flockOfBoids::createFlock(int nBoids_) {
 }
 
 // set the physics of the system
-void flockOfBoids::setPhysics(int rAttraction_, int rSeparation_, int rAlignment_, float pAttraction_, float pSeparation_, float sAttraction_, float sSeparation_, float wAlignment_, int accelerationStep_, int velocityStep_) {
+void flockOfBoids::setPhysics(int rAttraction_, int rSeparation_, int rAlignment_, float pAttraction_, float pSeparation_, float sAttraction_, float sSeparation_, float wAlignment_, int accelerationStep_, int velocityStep_, float separationSpringOffset_, float minVel_, float maxVel_) {
     
     rAttraction = rAttraction_;
     rSeparation = rSeparation_;
@@ -43,6 +43,9 @@ void flockOfBoids::setPhysics(int rAttraction_, int rSeparation_, int rAlignment
     wAlignment = wAlignment_;
     accelerationStep = accelerationStep_;
     velocityStep = velocityStep_;
+    separationSpringOffset = separationSpringOffset_;
+    minVel = minVel_;
+    maxVel = maxVel_;
 }
 
 // update the positions of the flock according to the physics, etc.
@@ -90,7 +93,7 @@ void flockOfBoids::updateFlock() {
             if (dist < rSeparation) {
                 
                 // force of separation on I from J
-                float magSeparation = 5 + sSeparation * pow(dist, pSeparation);
+                float magSeparation = separationSpringOffset + sSeparation * pow(dist, pSeparation);
                 ofVec2f fSeparationIJ = -pDiff.getScaled(magSeparation);
                 boids[i].globalForce += fSeparationIJ;
                 boids[j].globalForce += -fSeparationIJ;
@@ -129,7 +132,7 @@ void flockOfBoids::updateFlock() {
     for (int i = 0; i < nBoids; i++) {
         
         // acceleration = force / mass
-        boids[i].acceleration = boids[i].globalForce * boids[i].mass;
+        boids[i].acceleration = boids[i].globalForce * mass;
         
         // velocity += accleration * time step
         boids[i].velocity += boids[i].acceleration * accelerationStep; // CHANGE

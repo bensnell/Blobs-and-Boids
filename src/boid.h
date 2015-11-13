@@ -18,7 +18,7 @@ public:
     ofVec2f position;
     ofVec2f velocity;       // pixels per second
     ofVec2f acceleration;
-    float mass = 1;
+//    float mass = 1.0;
     
     // temporary variables to help calculate all forces acting on boid
     ofVec2f globalForce;
@@ -36,6 +36,8 @@ public:
     int nBoids;
     vector<boid> boids; // holds all boids
     
+    float mass = 1.0;
+    
     // physics parameters (Atr > Sep > Aln)
     int rAttraction;    // radius of search
     int rSeparation;
@@ -48,6 +50,8 @@ public:
     float sSeparation;
     // 1
     float wAlignment;   // weight of alignment
+
+    float separationSpringOffset = 5.0; // higher numbers correlate to higher separation strength, but this number must be positive for force to behave like a compressing spring -- 5.0 seems to work well
     
     // amount that velocity and acceleration are intergrated each frame
     int accelerationStep;   // 16 seeems good
@@ -55,7 +59,7 @@ public:
     
     // ranges
     float minVel = 1./100.;   // 10 pixels per second
-    float maxVel = 1./5.;    // 100 pixels per second
+    float maxVel = 1./5.;    // 200 pixels per second
     
     // edge behavior
     Boolean wrapEdges = true;
@@ -64,7 +68,7 @@ public:
     Boolean cursorWind = false;
     
     void createFlock(int nBoids_);
-    void setPhysics(int rAttraction_, int rSeparation_, int rAlignment_, float pAttraction_, float pSeparation_, float sAttraction_, float sSeparation_, float wAlignment_, int accelerationStep_, int velocityStep_);
+    void setPhysics(int rAttraction_, int rSeparation_, int rAlignment_, float pAttraction_, float pSeparation_, float sAttraction_, float sSeparation_, float wAlignment_, int accelerationStep_, int velocityStep_, float separationSpringOffset_, float minVel_, float maxVel_);
     
 //    void updateFlock(int timeStep); // time step is the amount of ellapsed time in ms since the last update of the flock
     
